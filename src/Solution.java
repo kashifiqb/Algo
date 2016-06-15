@@ -1,30 +1,55 @@
+import java.io.*;
 import java.util.*;
+import java.text.*;
 import java.math.*;
+import java.util.regex.*;
 
-class Solution {
-    /**
-     * @param A: An integer array.
-     * @param B: An integer array.
-     * @return: Cosine similarity.
-     */
-    public double cosineSimilarity(int[] A, int[] B) {
-        // write your code here
-        long sumA = 1l, sumB = 1l, sumC =1l;
-
-        for(int i=0; i<A.length; i++) {
-            sumA += (A[i] * A[i]);
-            sumB += (B[i] * B[i]);
-            sumC += (A[i] * B[i]);
-        }
-
-        if(sumA == 0 || sumB == 0) return 2.0000;
-
-        double d = Math.sqrt(sumA) * Math.sqrt(sumB);
-
-        return new BigDecimal(sumC/d).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
-    }
+public class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().cosineSimilarity(new int[]{1,4,0}, new int[]{1,2,3}));
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        int M = sc.nextInt();
+        int[] data = new int[N + 1];
+        for (int i = 1; i <= N; i++) {
+            data[i] = sc.nextInt();
+        }
+
+        moveToFront(data, 4, 4);
+        moveToEnd(data, 2, 4);
+
+        for (int i = 1; i <= N; i++) {
+            System.out.print(data[i] + " ");
+        }
     }
+
+    private static void moveToEnd(int[] data, int i, int j) {
+
+    }
+
+    private static void moveToFront(int[] data, int i, int j) {
+
+        int[] aux = new int[j - i + 1];
+        int auxIdx = 0;
+        for (int k =i; k <= j; k++) {
+            aux[auxIdx++] = data[k];
+        }
+
+        int[] front = new int[i-1];
+        int frontIdx = 0;
+        for (int k = 1; k <i ; k++) {
+            front[frontIdx++] = data[k];
+        }
+
+        int idx = 1;
+        for (int k = 0; k < aux.length; k++) {
+            data[idx++] = aux[k];
+        }
+
+        for (int k = 0; k < front.length; k++) {
+            data[idx++] = front[k];
+        }
+
+    }
+
 }
